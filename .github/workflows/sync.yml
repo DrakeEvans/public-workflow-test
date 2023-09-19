@@ -26,6 +26,7 @@ jobs:
           # Check if the user has the `contents:write` permission to the public remote.
           if [[ ! "$user_permissions" =~ "contents:write" ]]; then
             echo "The user does not have the `contents:write` permission to the public remote."
+            echo $user_permissions
             exit 1
           fi
 
