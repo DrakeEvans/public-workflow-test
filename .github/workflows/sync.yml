@@ -29,6 +29,4 @@ jobs:
           fi
 
       - name: Push to other remote
-        run: |
-        git remote add public https://x-access-token:${PUSHER}@github.com/DrakeEvans/public-workflow-test.git
-        git push --set-upstream other-remote master
+        run: git remote add public https://x-access-token:${PUSHER}@github.com/DrakeEvans/public-workflow-test.git && git push --set-upstream other-remote master
