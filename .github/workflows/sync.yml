@@ -32,5 +32,5 @@ jobs:
 
       - name: Push to other remote
         env:
-            PUSHER: ${{ secrets.PUSH_TEST }}
+            PUSHER: ${{ secrets.PUSHER }}
         run: git push https://x-access-token:${PUSHER}@github.com/DrakeEvans/public-workflow-test.git HEAD:master -f
