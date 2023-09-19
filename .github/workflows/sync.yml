@@ -17,6 +17,8 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Check permissions
+        env:
+            GITHUB_TOKEN: ${{ secrets.PUSHER }}
         run: |
           # Get the permissions of the user who is running the workflow.
           user_permissions=$(gh api repos/$GITHUB_REPOSITORY/collaborators/$GITHUB_ACTOR/permission)
@@ -28,4 +30,6 @@ jobs:
           fi
 
       - name: Push to other remote
+        env:
+            REPO2_PAT: ${{ secrets.PUSHER }}
         run: git remote add public https://x-access-token:${PUSHER}@github.com/DrakeEvans/public-workflow-test.git && git push --set-upstream other-remote master
