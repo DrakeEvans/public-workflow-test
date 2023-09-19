@@ -1,0 +1,34 @@
+name: Sync public branch with public repo
+
+on:
+  push:
+    branches:
+      - public
+
+permissions:
+  contents: write
+  actions: read
+  administration: read
+
+jobs:
+  push-to-public-remote:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Check permissions
+        run: |
+          # Get the permissions of the user who is running the workflow.
+          user_permissions=$(gh api repos/$GITHUB_REPOSITORY/collaborators/$GITHUB_ACTOR/permission)
+
+          # Check if the user has the `contents:write` permission to the public remote.
+          if [[ ! "$user_permissions" =~ "contents:write" ]]; then
+            echo "The user does not have the `contents:write` permission to the public remote."
+            exit 1
+          fi
+
+      - name: Push to other remote
+        run: |
+        git remote add public https://x-access-token:${PUSHER}@github.com/DrakeEvans/public-workflow-test.git
+        git push --set-upstream other-remote master
